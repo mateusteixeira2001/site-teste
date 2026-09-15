@@ -351,8 +351,8 @@ async function enviarSubmissao() {
     out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios (incluindo nome, e-mail e instituição de cada autor).</div>';
     return;
   }
-  if (!document.getElementById("decl-cega").checked || !document.getElementById("decl-normas").checked) {
-    out.innerHTML = '<div class="msg-erro">É necessário marcar as duas declarações para enviar.</div>';
+  if (!document.getElementById("decl-normas").checked) {
+    out.innerHTML = '<div class="msg-erro">É necessário aceitar as normas de submissão para enviar.</div>';
     return;
   }
 
