@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscrição - 32ª Semana do Contador de Cianorte</title>
+<meta name="description" content="Inscrição e envio de comprovante para a 32ª Semana do Contador de Cianorte - UEM">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#1B2154;
+  --tinta-claro:#2A3270;
+  --papel:#FBFAF7;
+  --grafite:#31373D;
+  --cinza:#6B7280;
+  --linha:#DDD8CE;
+  --ouro:#F2C31C;
+  --ouro-claro:#FFF8DC;
+  --verde:#2F7D4F;
+  --vermelho:#B3402E;
+  --branco:#FFFFFF;
+  --ciano:#3EC6D0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--papel);color:var(--grafite);line-height:1.6;font-size:16px}
+h1,h2,h3{font-family:'IBM Plex Serif',serif;color:var(--tinta)}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* ---------- Topo / Header ---------- */
+header{background:var(--tinta);color:var(--branco);padding:64px 0 56px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--ouro)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:14px}
+header h1{color:var(--branco);font-size:clamp(30px,5vw,46px);line-height:1.15;font-weight:700;max-width:720px}
+header .sub{margin-top:12px;font-size:17px;color:#C9D4E2;max-width:640px}
+.tema{margin-top:16px;font-family:'IBM Plex Serif',serif;font-size:18px;color:var(--ouro);font-style:italic;max-width:640px}
+.issn{display:inline-block;margin-top:16px;border:2px solid var(--ouro);color:var(--ouro);padding:4px 14px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;border-radius:4px}
+.datas-topo{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap}
+.datas-topo div{border-left:3px solid var(--ouro);padding-left:12px}
+.datas-topo .rotulo{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9DB0C6}
+.datas-topo .valor{font-family:'IBM Plex Serif',serif;font-size:19px;font-weight:600;color:var(--branco)}
+nav{background:var(--branco);border-bottom:1px solid var(--linha);position:sticky;top:0;z-index:50}
+nav .container{display:flex;gap:4px;overflow-x:auto}
+nav a{padding:14px 16px;font-size:14px;font-weight:500;color:var(--grafite);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--tinta);border-bottom-color:var(--ouro);outline:none}
+
+/* ---------- Seções e Cards ---------- */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--linha)}
+h2{font-size:27px;margin-bottom:8px}
+.h2-sub{color:var(--cinza);margin-bottom:28px;max-width:640px}
+
+.card{background:var(--branco);border:1px solid var(--linha);border-radius:8px;padding:32px;max-width:720px}
+label{display:block;font-size:14px;font-weight:600;color:var(--tinta);margin:18px 0 6px}
+label .opc{font-weight:400;color:var(--cinza)}
+input[type=text],input[type=email],select,textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;
+  font-family:'IBM Plex Sans',sans-serif;font-size:15px;background:var(--papel);color:var(--grafite)
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--tinta-claro);outline-offset:1px;border-color:var(--tinta-claro)}
+.hint{font-size:13px;color:var(--cinza);margin-top:4px}
+.botao{display:inline-block;background:var(--tinta);color:var(--branco);border:none;border-radius:6px;
+  padding:13px 26px;font-size:15px;font-weight:600;font-family:'IBM Plex Sans',sans-serif;cursor:pointer;margin-top:24px}
+.botao:hover{background:var(--tinta-claro)}
+.botao:focus-visible{outline:3px solid var(--ouro);outline-offset:2px}
+.botao[disabled]{opacity:.55;cursor:wait}
+.aviso{background:var(--ouro-claro);border-left:3px solid var(--ouro);padding:14px 16px;border-radius:0 6px 6px 0;font-size:14px;margin:20px 0}
+.msg-ok{background:#E8F3EC;border-left:3px solid var(--verde);padding:16px;border-radius:0 6px 6px 0;margin-top:20px}
+.msg-erro{background:#FBEAE6;border-left:3px solid var(--vermelho);padding:16px;border-radius:0 6px 6px 0;margin-top:20px;font-size:14px}
+.msg-ok .id{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--tinta);display:block;margin:6px 0}
+.check-linha{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14px}
+.check-linha input{margin-top:4px}
+.status-caixa{margin-top:18px;padding:18px;background:var(--papel);border:1px solid var(--linha);border-radius:6px;font-size:15px}
+
+footer{background:var(--tinta);color:#9DB0C6;padding:36px 0;font-size:14px;margin-top:40px}
+footer strong{color:var(--branco)}
+
+@media(max-width:640px){.card{padding:22px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <p class="eyebrow">DAD · CaaD · Universidade Estadual de Maringá</p>
+    <h1>32ª SEMANA DO CONTADOR DE CIANORTE</h1>
+    <p class="sub">Inscrição no Evento — Departamento de Ciências Contábeis / UEM</p>
+    <p class="tema">"Análise de dados e tomada de decisão na era da informação"</p>
+    <span class="issn">ISSN 1518-5354</span>
+    <div class="datas-topo">
+      <div><div class="rotulo">Evento</div><div class="valor">03 a 06 · nov · 2026</div></div>
+      <div><div class="rotulo">Local</div><div class="valor">UEM · Cianorte-PR</div></div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Navegação">
+  <div class="container">
+    <a href="#instrucoes">Instruções</a>
+    <a href="#registro">Inscrição</a>
+    <a href="#status">Consultar Status</a>
+  </div>
+</nav>
+
+<!-- ==================== INSTRUÇÕES ==================== -->
+<section id="instrucoes">
+  <div class="container">
+    <h2>Instruções de Inscrição</h2>
+    <p class="h2-sub">Orientações para confirmação da sua participação no evento.</p>
+    <div class="card">
+      <p><strong>1. Pagamento da Taxa:</strong> Realize o pagamento da taxa de inscrição utilizando o Código <b>XXXX</b></p>
+      </div>
+      <p><strong>2. Comprovante PDF:</strong> Guarde o comprovante bancário em formato <strong>PDF</strong> para anexo.</p>
+      <p style="margin-top:10px"><strong>3. Confirmação:</strong> Após o envio, seu comprovante será analisado. Você receberá o Código de Inscrição para acompanhamento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FORMULÁRIO DE INSCRIÇÃO ==================== -->
+<section id="registro">
+  <div class="container">
+    <h2>Formulário de Inscrição</h2>
+    <p class="h2-sub">Preencha seus dados pessoais e anexe o comprovante de pagamento em PDF.</p>
+
+    <div class="card">
+      <div id="form-registro">
+        <label for="nome">Nome Completo *</label>
+        <input type="text" id="nome" maxlength="150" placeholder="Ex.: Maria da Silva" required>
+
+        <label for="ra">RA / Registro Acadêmico <span class="opc">(Obrigatório para alunos UEM)</span></label>
+        <input type="text" id="ra" maxlength="30" placeholder="Ex.: 123456 (ou deixe em branco se externo)">
+
+        <label for="cpf">CPF *</label>
+        <input type="text" id="cpf" maxlength="14" placeholder="000.000.000-00" oninput="mascaraCPF(this)" required>
+
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" maxlength="150" placeholder="seuemail@exemplo.com" required>
+
+        <label for="comprovante">Comprovante de Pagamento (PDF) *</label>
+        <input type="file" id="comprovante" accept="application/pdf" required>
+        <p class="hint">Apenas arquivos no formato PDF (Tamanho máximo: 10 MB).</p>
+
+        <div class="check-linha">
+          <input type="checkbox" id="decl-pagamento">
+          <label for="decl-pagamento" style="margin:0;font-weight:400">Declaro que os dados informados são verdadeiros e anexei o comprovante autêntico. *</label>
+        </div>
+
+        <button type="button" class="botao" id="btn-enviar-registro" onclick="enviarInscricao()">Enviar Inscrição</button>
+        <div id="resultado-registro"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONSULTA DE STATUS ==================== -->
+<section id="status">
+  <div class="container">
+    <h2>Consultar Status da Inscrição</h2>
+    <p class="h2-sub">Informe o seu Código de Inscrição recebido por e-mail (ex.: REG-001).</p>
+    <div class="card">
+      <label for="input-id-registro">Código da Inscrição</label>
+      <input type="text" id="input-id-registro" class="mono" placeholder="REG-000">
+      <button type="button" class="botao" onclick="consultarStatusInscricao()">Consultar Status</button>
+      <div id="resultado-status-registro"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <strong>32ª SCC</strong> · Semana do Contador de Cianorte — DCC/UEM<br>
+    Universidade Estadual de Maringá · Cianorte, Paraná
+  </div>
+</footer>
+
+<script>
+/* Insira aqui a URL do seu Web App implantado no Google Apps Script */
+const SCRIPT_URL = "";
+
+/* Máscara de CPF */
+function mascaraCPF(input) {
+  let v = input.value.replace(/\D/g, "");
+  if (v.length > 11) v = v.substring(0, 11);
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d)/, "$1.$2");
+  v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  input.value = v;
+}
+
+/* Leitura de PDF em Base64 */
+function lerComprovanteBase64(input) {
+  return new Promise((res, rej) => {
+    const f = input.files[0];
+    if (!f) return rej("Selecione o arquivo PDF do comprovante.");
+    if (f.type !== "application/pdf") return rej("O comprovante deve ser um arquivo no formato PDF.");
+    if (f.size > 10 * 1024 * 1024) return rej("O tamanho do arquivo excede o limite de 10 MB.");
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(",")[1]);
+    r.onerror = () => rej("Falha ao ler o arquivo do comprovante.");
+    r.readAsDataURL(f);
+  });
+}
+
+/* Envio da inscrição */
+async function enviarInscricao() {
+  const out = document.getElementById("resultado-registro");
+  out.innerHTML = "";
+
+  const nome = document.getElementById("nome").value.trim();
+  const ra = document.getElementById("ra").value.trim();
+  const cpf = document.getElementById("cpf").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const decl = document.getElementById("decl-pagamento").checked;
+  const inputArquivo = document.getElementById("comprovante");
+
+  if (!nome || !cpf || !email || !inputArquivo.files.length) {
+    out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios e anexe o comprovante.</div>';
+    return;
+  }
+
+  if (cpf.length < 14) {
+    out.innerHTML = '<div class="msg-erro">Informe um CPF válido.</div>';
+    return;
+  }
+
+  if (!decl) {
+    out.innerHTML = '<div class="msg-erro">Você precisa confirmar a declaração dos dados para prosseguir.</div>';
+    return;
+  }
+
+  const btn = document.getElementById("btn-enviar-registro");
+  btn.disabled = true;
+  btn.textContent = "Processando inscrição… aguarde";
+
+  try {
+    const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
+    const resp = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "registrar",
+        nome,
+        ra: ra || "N/A",
+        cpf,
+        email,
+        comprovanteBase64
+      })
+    });
+
+    const dados = await resp.json();
+
+    if (dados.ok) {
+      out.innerHTML =
+        '<div class="msg-ok">Inscrição realizada com sucesso! Guarde o seu código de acompanhamento:' +
+        '<span class="id">' + dados.id + '</span>' +
+        'Um e-mail de confirmação foi enviado para <strong>' + email + '</strong>.</div>';
+
+      document.getElementById("nome").value = "";
+      document.getElementById("ra").value = "";
+      document.getElementById("cpf").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("comprovante").value = "";
+      document.getElementById("decl-pagamento").checked = false;
+    } else {
+      out.innerHTML = '<div class="msg-erro">' + (dados.erro || "Erro ao processar a inscrição.") + '</div>';
+    }
+  } catch (e) {
+    out.innerHTML = '<div class="msg-erro">' + (typeof e === "string" ? e : "Erro de conexão. Tente novamente.") + '</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Enviar Inscrição";
+  }
+}
+
+/* Consulta de Status */
+async function consultarStatusInscricao() {
+  const id = document.getElementById("input-id-registro").value.trim();
+  const out = document.getElementById("resultado-status-registro");
+
+  if (!id) {
+    out.innerHTML = '<div class="msg-erro">Informe o Código da sua inscrição.</div>';
+    return;
+  }
+
+  out.innerHTML = '<p class="hint">Consultando status…</p>';
+
+  try {
+    const resp = await fetch(SCRIPT_URL + "?action=status_registro&id=" + encodeURIComponent(id));
+    const d = await resp.json();
+
+    if (!d.ok) {
+      out.innerHTML = '<div class="msg-erro">' + d.erro + '</div>';
+      return;
+    }
+
+    out.innerHTML =
+      '<div class="status-caixa">' +
+      'Código: <strong>' + d.id + '</strong><br>' +
+      'Nome: <strong>' + d.nome + '</strong><br>' +
+      'CPF: ' + d.cpf + '<br>' +
+      'Status da Inscrição: <strong>' + d.status + '</strong>' +
+      (d.observacoes ? '<br>Observações: ' + d.observacoes : '') +
+      '</div>';
+  } catch (e) {
+    out.innerHTML = '<div class="msg-erro">Erro ao realizar a consulta. Tente novamente.</div>';
+  }
+}
+</script>
+</body>
+</html>
