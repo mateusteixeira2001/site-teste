@@ -150,7 +150,7 @@ footer a{color:var(--ouro)}
 <section id="datas">
   <div class="container">
     <h2>Datas importantes</h2>
-    <p class="h2-sub">Calendário oficial do SCC? de 2026.</p>
+    <p class="h2-sub">Calendário oficial da Semana do Contador de Cianorte de 2026.</p>
     <ul class="cronograma">
       <li><span class="data mono">15/07/2026</span><span class="etapa">Abertura das submissões</span></li>
       <li class="destaque"><span class="data mono">17/08/2026</span><span class="etapa">Data-limite para submissão de trabalhos</span></li>
@@ -202,8 +202,8 @@ footer a{color:var(--ouro)}
       <p><strong>Modalidade:</strong> Artigo Completo, com extensão entre 6 (seis) e 18 (dezoito) páginas.</p>
       <p style="margin-top:12px"><strong>Formato do arquivo:</strong> PDF, com no máximo 10 MB.</p>
       <p style="margin-top:12px"><strong>Template:</strong> utilize o modelo oficial de formatação para preparar o seu artigo e os slides.</p>
-      <a class="download-link" href="Modelo de artigo_2026.docx" download>⬇ Baixar template de submissão (.docx)</a>
-      <a class="download-link" href="Modelo de slide_2026.pptx" download>⬇ Baixar template de submissão (.pptx)</a>
+      <a class="download-link" href="Modelo de artigo.docx" download>⬇ Baixar template de submissão (.docx)</a>
+      <a class="download-link" href="Modelo de slide.pptx" download>⬇ Baixar template de submissão (.pptx)</a>
       <p style="margin-top:12px"><strong>Publicação:</strong> os trabalhos aprovados e apresentados no evento serão publicados nos Anais da 32º Semana do Contador de Cianorte (ISSN ????).</p>
     </div>
   </div>
@@ -227,20 +227,19 @@ footer a{color:var(--ouro)}
         <label for="area">Área temática *</label>
         <select id="area" required>
           <option value="">Selecione…</option>
-          <option>1. Trabalhos da Disciplina de Gestão de Custos Aplicados a Serviços Hospitalares</option>
-          <option>2. Trabalhos da Disciplina de Produção Tecnólogica em Contabilidade</option>
-          <option>3. Trabalhos de Conclusão de Curso</option>
+          <option>1. Trabalhos de Gestão de Custos Aplicados a Serviços Hospitalares</option>
+          <option>2. Trabalhos de Produção Tecnólogica em Contabilidade</option>
+          <option>3. Trabalhos de Contabilidade Aplicada ao Agronegócio</option>
+          <option>4. Trabalhos de Conclusão de Curso</option>
+          <option>5. Outras modalidades / Outros trabalhos na área contábil</option>
         </select>
 
         <label for="titulo">Título do trabalho *</label>
         <input type="text" id="titulo" maxlength="300" required>
 
         <label for="resumo">Resumo *</label>
-        <textarea id="resumo" maxlength="3000" required></textarea>
-        <p class="hint">Cole aqui o resumo do trabalho (até 3.000 caracteres).</p>
-
-        <label for="palavras">Palavras-chave <span class="opc">(separadas por ponto e vírgula)</span></label>
-        <input type="text" id="palavras" maxlength="300" placeholder="ex.: estratégia; inovação; PME">
+        <textarea id="resumo" maxlength="2000" required></textarea>
+        <p class="hint">Cole aqui o resumo do trabalho (até 2.000 caracteres).</p>
 
         <label>Autores *</label>
         <p class="hint" style="margin-bottom:6px">O primeiro autor será o contato principal e receberá as comunicações do evento.</p>
@@ -253,7 +252,15 @@ footer a{color:var(--ouro)}
 
         <div class="check-linha">
           <input type="checkbox" id="decl-normas">
-          <label for="decl-normas" style="margin:0;font-weight:400">Declaro estar ciente das normas de submissão do 46º TESTE123 2026. *</label>
+          <label for="decl-normas" style="margin:0;font-weight:400">Declaro estar ciente das normas de submissão da 32ª Semana do Contador de Cianorte. *</label>
+        </div>
+        <div class="check-linha">
+          <input type="checkbox" id="decl-normas2">
+          <label for="decl-normas" style="margin:0;font-weight:400">Declaro que o trabalho é original, que todas as fontes foram citadas e que estou ciente que a identificação de plágio resultará na rejeição do trabalho. *</label>
+        </div>
+        <div class="check-linha">
+          <input type="checkbox" id="decl-normas3">
+          <label for="decl-normas" style="margin:0;font-weight:400">Declaro que as ferramentas de Inteligência Artificial (se utlizadas) serviram apenas para suporte linguístico ou técnico, sem substituir a autoria humana. *</label>
         </div>
 
         <button type="button" class="botao" id="btn-enviar" onclick="enviarSubmissao()">Enviar trabalho</button>
@@ -350,7 +357,7 @@ async function enviarSubmissao() {
     out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios (incluindo nome, e-mail e instituição de cada autor).</div>';
     return;
   }
-  if (!document.getElementById("decl-normas").checked) {
+  if (!document.getElementById("decl-normas").checked || !document.getElementById("decl-normas2").checked || !document.getElementById("decl-normas3").checked){
     out.innerHTML = '<div class="msg-erro">É necessário aceitar as normas de submissão para enviar.</div>';
     return;
   }
