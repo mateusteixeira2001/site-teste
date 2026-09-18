@@ -267,20 +267,32 @@ footer a{color:var(--ouro)}
   </div>
 </section>
 
-<!-- ==================== CONSULTA DE STATUS ==================== -->
+<!-- ==================== CONSULTA DE STATUS do cadastro ==================== -->
 <section id="status">
   <div class="container">
-    <h2>Consultar status</h2>
+    <h2>Consultar status da inscrição</h2>
     <p class="h2-sub">Informe o ID recebido por e-mail (ex.: TESTE123-001).</p>
     <div class="card">
-      <label for="input-id">ID do trabalho</label>
+      <label for="input-id">ID da inscrição</label>
       <input type="text" id="input-id" class="mono" placeholder="">
       <button type="button" class="botao" onclick="consultarStatus()">Consultar</button>
       <div id="resultado-status"></div>
     </div>
   </div>
 </section>
-
+<!--  Consulta de status da submissão  -->
+<section id="status">
+  <div class="container">
+    <h2>Consultar status da submissão</h2>
+    <p class="h2-sub">Informe o ID recebido por e-mail (ex.: TESTE123-001).</p>
+    <div class="card">
+      <label for="input-id-registro">ID do trabalho</label>
+      <input type="text" id="input-id-registro" class="mono" placeholder="">
+      <button type="button" class="botao" onclick="consultarStatus()">Consultar</button>
+      <div id="resultado-status-registro"></div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="container">
@@ -297,6 +309,9 @@ footer a{color:var(--ouro)}
    Ela termina com /exec
    ============================================================ */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwPh56eKOVtT9IPWBB-sGQTBYfDLkGXwQr_3QUl4a-ylq24mvNEnz0L4x7bCaE9zxtjw/exec";
+
+/* Link para o Apps Script que faz a consulta do cadastro */
+const SCRIPT_URL2 = "";
 
 /* ---------- autores ---------- */
 let numAutores = 0;
@@ -415,6 +430,38 @@ async function consultarStatus() {
   }
 }
 document.getElementById("input-id").addEventListener("keydown", e => { if (e.key === "Enter") consultarStatus(); });
+async function consultarStatusInscricao() {
+  const id = document.getElementById("input-id-registro").value.trim();
+  const out = document.getElementById("resultado-status-registro");
+
+  if (!id) {
+    out.innerHTML = '<div class="msg-erro">Informe o Código da sua inscrição.</div>';
+    return;
+  }
+
+  out.innerHTML = '<p class="hint">Consultando status…</p>';
+
+  try {
+    const resp = await fetch(SCRIPT_URL + "?action=status_registro&id=" + encodeURIComponent(id));
+    const d = await resp.json();
+
+    if (!d.ok) {
+      out.innerHTML = '<div class="msg-erro">' + d.erro + '</div>';
+      return;
+    }
+
+    out.innerHTML =
+      '<div class="status-caixa">' +
+      'Código: <strong>' + d.id + '</strong><br>' +
+      'Nome: <strong>' + d.nome + '</strong><br>' +
+      'CPF: ' + d.cpf + '<br>' +
+      'Status da Inscrição: <strong>' + d.status + '</strong>' +
+      (d.observacoes ? '<br>Observações: ' + d.observacoes : '') +
+      '</div>';
+  } catch (e) {
+    out.innerHTML = '<div class="msg-erro">Erro ao realizar a consulta. Tente novamente.</div>';
+  }
+}
 
 </script>
 </body>
