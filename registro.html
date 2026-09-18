@@ -533,35 +533,61 @@
       });
     }
 
-    async function enviarInscricao() {
-      const out = document.getElementById("resultado-registro");
-      const nome = document.getElementById("nome").value.trim();
-      const cpf = document.getElementById("cpf").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const inputArquivo = document.getElementById("comprovante");
+async function enviarInscricao() {
+  const out = document.getElementById("resultado-registro");
+  const nome = document.getElementById("nome").value.trim();
+  const cpf = document.getElementById("cpf").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const classe = document.getElementById("classe").value;
+  const ra = document.getElementById("ra").value.trim();
+  const inputArquivo = document.getElementById("comprovante");
 
-      if (!nome || !cpf || !email || !inputArquivo.files.length) {
-        out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios.</div>'; return;
-      }
+  // Validação: RA não é obrigatório, mas a Classe é
+  if (!nome || !cpf || !email || !classe || !inputArquivo.files.length) {
+    out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios.</div>'; 
+    return;
+  }
 
-      const btn = document.getElementById("btn-enviar-registro");
-      btn.disabled = true; btn.textContent = "Enviando...";
+  const btn = document.getElementById("btn-enviar-registro");
+  btn.disabled = true; 
+  btn.textContent = "Enviando...";
 
-      try {
-        const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
-        const resp = await fetch(SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "registrar", nome, cpf, email, comprovanteBase64 })
-        });
-        const dados = await resp.json();
-        if (dados.ok) {
-          out.innerHTML = `<div class="msg-ok">Inscrição enviada! Código: <span class="id">${dados.id}</span></div>`;
-        } else {
-          out.innerHTML = `<div class="msg-erro">${dados.erro}</div>`;
-        }
-      } catch (e) { out.innerHTML = '<div class="msg-erro">Erro de conexão.</div>'; }
-      finally { btn.disabled = false; btn.textContent = "Enviar Inscrição"; }
+  try {
+    const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
+    const resp = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({ 
+        action: "registrar", 
+        nome, 
+        cpf, 
+        email, 
+        classe, 
+        ra, 
+        comprovanteBase64 
+      })
+    });
+    
+    const dados = await resp.json();
+    
+    if (dados.ok) {
+      out.innerHTML = `<div class="msg-ok">Inscrição enviada! Código: <span class="id">${dados.id}</span></div>`;
+      // Opcional: Limpar formulário após sucesso
+      document.getElementById("nome").value = "";
+      document.getElementById("cpf").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("classe").value = "";
+      document.getElementById("ra").value = "";
+      inputArquivo.value = "";
+    } else {
+      out.innerHTML = `<div class="msg-erro">${dados.erro}</div>`;
     }
+  } catch (e) { 
+    out.innerHTML = '<div class="msg-erro">Erro de conexão. Tente novamente.</div>'; 
+  } finally { 
+    btn.disabled = false; 
+    btn.textContent = "Enviar Inscrição"; 
+  }
+}
   </script>
 </body>
 
