@@ -129,7 +129,7 @@ footer strong{color:var(--branco)}
 </footer>
 
 <script>
-const SCRIPT_URL = "";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlIgnuR6VIy-tOh5mM8E64Rv8t2msvy4ROedT8HXHxts2tsGLmwwNyhmz0Q5-BANRERg/exec";
 
 async function consultarStatusSubmissao() {
   const id = document.getElementById("input-id-sub").value.trim();
@@ -150,7 +150,7 @@ async function consultarStatusInscricao() {
   if (!id) { out.innerHTML = '<div class="msg-erro">Informe o Código.</div>'; return; }
   out.innerHTML = '<p>Consultando...</p>';
   try {
-    const resp = await fetch(SCRIPT_URL2 + "?action=status_registro&id=" + encodeURIComponent(id));
+    const resp = await fetch(SCRIPT_URL + "?action=status_registro&id=" + encodeURIComponent(id));
     const d = await resp.json();
     if (!d.ok) { out.innerHTML = '<div class="msg-erro">' + d.erro + '</div>'; return; }
     out.innerHTML = `<div class="status-caixa">Código: <strong>${d.id}</strong><br>Nome: ${d.nome}<br>Status: <strong>${d.status}</strong></div>`;
