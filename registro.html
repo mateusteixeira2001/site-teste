@@ -471,6 +471,18 @@
     </div>
   </nav>
 
+<!-- ==================== INSTRUÇÕES ==================== -->
+<section id="instrucoes">
+  <div class="container">
+    <h2>Instruções de Inscrição</h2>
+    <p class="h2-sub">Orientações para confirmação da sua participação no evento.</p>
+    <div class="card">
+      <p><strong>1. Pagamento da Taxa:</strong> Realize o pagamento da taxa de inscrição utilizando o Código <b>XXXX</b></p>
+      <p><strong>2. Comprovante PDF:</strong> Guarde o comprovante bancário em formato <strong>PDF</strong> para anexo.</p>
+      <p style="margin-top:10px"><strong>3. Confirmação:</strong> Após o envio, seu comprovante será analisado. Você receberá o Código de Inscrição para acompanhamento.</p>
+    </div>
+  </div>
+</section>
   <section id="registro">
     <div class="container">
       <h2>Formulário de Inscrição</h2>
@@ -502,6 +514,10 @@
           <label for="comprovante">Comprovante de Pagamento (PDF) *</label>
           <input type="file" id="comprovante" accept="application/pdf" required>
           <br>
+          <div class="check-linha">
+            <input type="checkbox" id="decl-pagamento">
+            <label for="decl-pagamento" style="margin:0;font-weight:400">Declaro que os dados informados são verdadeiros e anexei o comprovante autêntico. *</label>
+          </div>
           <button type="button" class="botao" id="btn-enviar-registro" onclick="enviarInscricao()">Enviar
             Inscrição</button>
           <div id="resultado-registro"></div>
