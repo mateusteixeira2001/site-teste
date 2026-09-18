@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TESTING v3 16/09</title>
-<meta name="description" content="">
+<title>Submeter Trabalho - 32ª Semana do Contador de Cianorte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -30,50 +29,43 @@ h1,h2,h3{font-family:'IBM Plex Serif',serif;color:var(--tinta)}
 .mono{font-family:'IBM Plex Mono',monospace}
 .container{max-width:960px;margin:0 auto;padding:0 24px}
 
-/* ---------- topo ---------- */
+/* ---------- CABEÇALHO PADRONIZADO ---------- */
 header{background:var(--tinta);color:var(--branco);padding:64px 0 56px;position:relative;overflow:hidden}
 header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--ouro)}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:14px}
 header h1{color:var(--branco);font-size:clamp(30px,5vw,46px);line-height:1.15;font-weight:700;max-width:720px}
 header .sub{margin-top:12px;font-size:17px;color:#C9D4E2;max-width:640px}
-.tema{margin-top:16px;font-family:'IBM Plex Serif',serif;font-size:18px;color:var(--ouro);font-style:italic;max-width:640px}
 .issn{display:inline-block;margin-top:16px;border:2px solid var(--ouro);color:var(--ouro);padding:4px 14px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;border-radius:4px}
 .datas-topo{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap}
 .datas-topo div{border-left:3px solid var(--ouro);padding-left:12px}
 .datas-topo .rotulo{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9DB0C6}
 .datas-topo .valor{font-family:'IBM Plex Serif',serif;font-size:19px;font-weight:600;color:var(--branco)}
+
+/* ---------- NAVEGAÇÃO PADRONIZADA ---------- */
 nav{background:var(--branco);border-bottom:1px solid var(--linha);position:sticky;top:0;z-index:50}
 nav .container{display:flex;gap:4px;overflow-x:auto}
 nav a{padding:14px 16px;font-size:14px;font-weight:500;color:var(--grafite);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
 nav a:hover,nav a:focus-visible{color:var(--tinta);border-bottom-color:var(--ouro);outline:none}
 
-/* ---------- seções ---------- */
+/* ---------- SEÇÕES ---------- */
 section{padding:56px 0}
 section+section{border-top:1px solid var(--linha)}
 h2{font-size:27px;margin-bottom:8px}
 .h2-sub{color:var(--cinza);margin-bottom:28px;max-width:640px}
 
-/* ---------- cronograma ---------- */
-.cronograma{list-style:none;max-width:640px}
-.cronograma li{display:flex;gap:18px;padding:13px 0;border-bottom:1px dashed var(--linha);align-items:baseline}
-.cronograma .data{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;color:var(--tinta);min-width:150px}
-.cronograma .destaque .data,.cronograma .destaque .etapa{color:var(--ouro);font-weight:600}
-
-/* ---------- categorias ---------- */
+/* ---------- CATEGORIAS ---------- */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:640px}
 .cat-card{border:2px solid var(--ouro);border-radius:8px;padding:18px}
 .cat-card h3{color:var(--ouro);font-size:18px;margin-bottom:6px}
 .cat-card p{font-size:14px;color:var(--cinza)}
 
-/* ---------- áreas (lista simples) ---------- */
+/* ---------- ÁREAS TEMÁTICAS ---------- */
 .areas-list{list-style:none;max-width:640px}
 .areas-list li{padding:10px 0;border-bottom:1px solid var(--linha);display:flex;gap:12px;align-items:baseline}
 .areas-list .num{font-family:'IBM Plex Serif',serif;font-size:22px;font-weight:600;color:var(--ouro);min-width:32px}
 
-/* ---------- formulários ---------- */
+/* ---------- FORMULÁRIOS ---------- */
 .card{background:var(--branco);border:1px solid var(--linha);border-radius:8px;padding:32px;max-width:720px}
 label{display:block;font-size:14px;font-weight:600;color:var(--tinta);margin:18px 0 6px}
-label .opc{font-weight:400;color:var(--cinza)}
 input[type=text],input[type=email],select,textarea{
   width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;
   font-family:'IBM Plex Sans',sans-serif;font-size:15px;background:var(--papel);color:var(--grafite)
@@ -92,49 +84,50 @@ textarea{min-height:120px;resize:vertical}
 .botao-sec{background:none;border:1px solid var(--tinta);color:var(--tinta);border-radius:6px;
   padding:9px 16px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:12px}
 .botao-sec:hover{background:var(--ouro-claro)}
-.aviso{background:var(--ouro-claro);border-left:3px solid var(--ouro);padding:14px 16px;border-radius:0 6px 6px 0;font-size:14px;margin:20px 0}
 .msg-ok{background:#E8F3EC;border-left:3px solid var(--verde);padding:16px;border-radius:0 6px 6px 0;margin-top:20px}
 .msg-erro{background:#FBEAE6;border-left:3px solid var(--vermelho);padding:16px;border-radius:0 6px 6px 0;margin-top:20px;font-size:14px}
 .msg-ok .id{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--tinta);display:block;margin:6px 0}
 .check-linha{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14px}
 .check-linha input{margin-top:4px}
-.criterio-bloco{padding:12px 0;border-bottom:1px dashed var(--linha)}
-.criterio-bloco .criterio{font-size:14px;font-weight:600;color:var(--tinta);display:block;margin-bottom:6px}
-.criterio-bloco select{max-width:220px}
-.status-caixa{margin-top:18px;padding:18px;background:var(--papel);border:1px solid var(--linha);border-radius:6px;font-size:15px}
-.status-caixa strong{color:var(--tinta)}
 .download-link{display:inline-flex;align-items:center;gap:8px;background:var(--ouro);color:var(--tinta);padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;margin-top:12px}
 .download-link:hover{opacity:.9}
 
+/* ---------- RODAPÉ PADRONIZADO ---------- */
 footer{background:var(--tinta);color:#9DB0C6;padding:36px 0;font-size:14px;margin-top:40px}
 footer strong{color:var(--branco)}
-footer a{color:var(--ouro)}
 
 @media(max-width:640px){
   .cat-grid{grid-template-columns:1fr}
   .card{padding:22px}
-  .cronograma li{flex-direction:column;gap:2px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
+<!-- HEADER PADRONIZADO -->
 <header>
   <div class="container">
-    <!---<p class="eyebrow">DAD · CaaD · Universidade Estadual de Maringá</p>--->
     <h1>32ª SEMANA DO CONTADOR DE CIANORTE</h1>
     <p class="sub">Semana do Contador — Departamento de Ciências Contábeis / UEM</p>
-    <!--<p class="tema">"Análise de dados e tomada de decisão na era da informação"</p> --->
     <span class="issn">ISSN ????</span>
     <div class="datas-topo">
       <div><div class="rotulo">Evento</div><div class="valor">03 a 06 · nov · 2026</div></div>
-      <div><div class="rotulo">Submissões</div><div class="valor">15/07 → 17/08</div></div>
       <div><div class="rotulo">Local</div><div class="valor">UEM · Cianorte-PR</div></div>
     </div>
   </div>
 </header>
-<!-- ==================== CATEGORIAS ==================== -->
+
+<!-- NAV PADRONIZADA -->
+<nav aria-label="Navegação">
+  <div class="container">
+    <a href="index_2.html">Página Inicial</a>
+    <a href="submeter_2.html" style="color:var(--tinta);border-bottom-color:var(--ouro)">Submeter trabalho</a>
+    <a href="registro_2.html">Inscrição</a>
+  </div>
+</nav>
+
+<!-- CATEGORIAS -->
 <section id="categorias">
   <div class="container">
     <h2>Categorias de participação</h2>
@@ -152,14 +145,14 @@ footer a{color:var(--ouro)}
   </div>
 </section>
 
-<!-- ==================== ÁREAS ==================== -->
+<!-- ÁREAS TEMÁTICAS -->
 <section id="areas">
   <div class="container">
     <h2>Áreas temáticas</h2>
     <p class="h2-sub">Escolha a área que melhor dialoga com o seu trabalho.</p>
     <ul class="areas-list">
       <li><span class="num">1</span><span>Trabalhos de Gestão de Custos Aplicados a Serviços Hospitalares</span></li>
-      <li><span class="num">2</span><span>Trabalhos de Produção Tecnólogica em Contabilidade</span></li>
+      <li><span class="num">2</span><span>Trabalhos de Produção Tecnológica em Contabilidade</span></li>
       <li><span class="num">3</span><span>Trabalhos de Contabilidade Aplicada ao Agronegócio</span></li>
       <li><span class="num">4</span><span>Trabalhos de Conclusão de Curso</span></li>
       <li><span class="num">5</span><span>Outras modalidades / outros trabalhos na área Contábil</span></li>
@@ -167,7 +160,7 @@ footer a{color:var(--ouro)}
   </div>
 </section>
 
-<!-- ==================== NORMAS ==================== -->
+<!-- NORMAS DE SUBMISSÃO -->
 <section id="normas">
   <div class="container">
     <h2>Normas de submissão</h2>
@@ -178,12 +171,12 @@ footer a{color:var(--ouro)}
       <p style="margin-top:12px"><strong>Template:</strong> utilize o modelo oficial de formatação para preparar o seu artigo e os slides.</p>
       <a class="download-link" href="Modelo de artigo.docx" download>⬇ Baixar template de submissão (.docx)</a>
       <a class="download-link" href="Modelo de slide.pptx" download>⬇ Baixar template de submissão (.pptx)</a>
-      <p style="margin-top:12px"><strong>Publicação:</strong> os trabalhos aprovados e apresentados no evento serão publicados nos Anais da 32º Semana do Contador de Cianorte (ISSN ????).</p>
+      <p style="margin-top:12px"><strong>Publicação:</strong> os trabalhos aprovados e apresentados no evento serão publicados nos Anais da 32ª Semana do Contador de Cianorte (ISSN ????).</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== SUBMISSÃO ==================== -->
+<!-- FORMULÁRIO DE SUBMISSÃO -->
 <section id="submeter">
   <div class="container">
     <h2>Submeter trabalho</h2>
@@ -202,7 +195,7 @@ footer a{color:var(--ouro)}
         <select id="area" required>
           <option value="">Selecione…</option>
           <option>1. Trabalhos de Gestão de Custos Aplicados a Serviços Hospitalares</option>
-          <option>2. Trabalhos de Produção Tecnólogica em Contabilidade</option>
+          <option>2. Trabalhos de Produção Tecnológica em Contabilidade</option>
           <option>3. Trabalhos de Contabilidade Aplicada ao Agronegócio</option>
           <option>4. Trabalhos de Conclusão de Curso</option>
           <option>5. Outras modalidades / Outros trabalhos na área contábil</option>
@@ -222,7 +215,7 @@ footer a{color:var(--ouro)}
 
         <label for="arquivo">Arquivo do trabalho (PDF) *</label>
         <input type="file" id="arquivo" accept="application/pdf" required>
-        <p class="hint">Máximo 10 MB. Apenas PDF. Entre 6 e 18 páginas.</p>
+        <p class="hint">Máximo 10 MB. Apenas PDF.</p>
 
         <div class="check-linha">
           <input type="checkbox" id="decl-normas">
@@ -230,11 +223,11 @@ footer a{color:var(--ouro)}
         </div>
         <div class="check-linha">
           <input type="checkbox" id="decl-normas2">
-          <label for="decl-normas" style="margin:0;font-weight:400">Declaro que o trabalho é original, que todas as fontes foram citadas e que estou ciente que a identificação de plágio resultará na rejeição do trabalho. *</label>
+          <label for="decl-normas2" style="margin:0;font-weight:400">Declaro que o trabalho é original, que todas as fontes foram citadas e que estou ciente que a identificação de plágio resultará na rejeição do trabalho. *</label>
         </div>
         <div class="check-linha">
           <input type="checkbox" id="decl-normas3">
-          <label for="decl-normas" style="margin:0;font-weight:400">Declaro que as ferramentas de Inteligência Artificial (se utlizadas) serviram apenas para suporte linguístico ou técnico, sem substituir a autoria humana. *</label>
+          <label for="decl-normas3" style="margin:0;font-weight:400">Declaro que as ferramentas de Inteligência Artificial (se utilizadas) serviram apenas para suporte linguístico ou técnico, sem substituir a autoria humana. *</label>
         </div>
 
         <button type="button" class="botao" id="btn-enviar" onclick="enviarSubmissao()">Enviar trabalho</button>
@@ -243,22 +236,20 @@ footer a{color:var(--ouro)}
     </div>
   </div>
 </section>
+
+<!-- FOOTER PADRONIZADO -->
 <footer>
   <div class="container">
-    Semana do Contador de Cianorte — DCC/UEM<br>
+    <strong>32ª Semana do Contador de Cianorte — DCC/UEM</strong><br>
     Universidade Estadual de Maringá · Cianorte, Paraná<br>
     Dúvidas: teste123@uem.br
   </div>
 </footer>
-<script>
-/* ============================================================
-   ÚNICA CONFIGURAÇÃO NECESSÁRIA:
-   cole abaixo a URL do Aplicativo da Web (Apps Script).
-   Ela termina com /exec
-   ============================================================ */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwPh56eKOVtT9IPWBB-sGQTBYfDLkGXwQr_3QUl4a-ylq24mvNEnz0L4x7bCaE9zxtjw/exec";
 
-/* ---------- autores ---------- */
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlIgnuR6VIy-tOh5mM8E64Rv8t2msvy4ROedT8HXHxts2tsGLmwwNyhmz0Q5-BANRERg/exec";
+
+/* ---------- AUTORES ---------- */
 let numAutores = 0;
 function adicionarAutor() {
   numAutores++;
@@ -274,7 +265,6 @@ function adicionarAutor() {
 }
 adicionarAutor();
 
-/* ---------- submissão ---------- */
 function coletarAutores() {
   const blocos = document.querySelectorAll(".autor-bloco");
   const lista = [];
@@ -288,6 +278,7 @@ function coletarAutores() {
   return lista.length ? lista : null;
 }
 
+/* ---------- ARQUIVO ---------- */
 function lerArquivoBase64(input) {
   return new Promise((res, rej) => {
     const f = input.files[0];
@@ -301,6 +292,7 @@ function lerArquivoBase64(input) {
   });
 }
 
+/* ---------- SUBMISSÃO INTEGRADA COM APPS SCRIPT UNIFICADO ---------- */
 async function enviarSubmissao() {
   const out = document.getElementById("resultado-submissao");
   out.innerHTML = "";
@@ -315,12 +307,13 @@ async function enviarSubmissao() {
     return;
   }
   if (!document.getElementById("decl-normas").checked || !document.getElementById("decl-normas2").checked || !document.getElementById("decl-normas3").checked){
-    out.innerHTML = '<div class="msg-erro">É necessário aceitar as normas de submissão para enviar.</div>';
+    out.innerHTML = '<div class="msg-erro">É necessário aceitar todas as declarações e normas para enviar.</div>';
     return;
   }
 
   const btn = document.getElementById("btn-enviar");
-  btn.disabled = true; btn.textContent = "Enviando… aguarde";
+  btn.disabled = true; 
+  btn.textContent = "Enviando… aguarde";
 
   try {
     const arquivoBase64 = await lerArquivoBase64(document.getElementById("arquivo"));
@@ -328,9 +321,13 @@ async function enviarSubmissao() {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
-        action: "submeter", categoria, area, titulo, resumo,
-        palavrasChave: document.getElementById("palavras").value.trim(),
-        autores, arquivoBase64
+        action: "submeter",
+        categoria,
+        area,
+        titulo,
+        resumo,
+        autores,
+        arquivoBase64
       })
     });
     const dados = await resp.json();
@@ -338,10 +335,12 @@ async function enviarSubmissao() {
       out.innerHTML =
         '<div class="msg-ok">Trabalho enviado com sucesso! Guarde seu ID:' +
         '<span class="id">' + dados.id + '</span>' +
-        'Uma confirmação foi enviada ao e-mail do primeiro autor. Use o ID para consultar o status.</div>';
+        'Uma confirmação foi enviada ao e-mail do primeiro autor. Use o ID para consultar o status na página inicial.</div>';
+      
+      // Limpa formulário após o sucesso
       document.getElementById("form-submissao").querySelectorAll("input,select,textarea").forEach(el => {
         if (el.type === "checkbox") el.checked = false;
-        else el.value = "";
+        else if (el.type !== "button") el.value = "";
       });
     } else {
       out.innerHTML = '<div class="msg-erro">' + (dados.erro || "Erro ao enviar.") + '</div>';
@@ -349,7 +348,8 @@ async function enviarSubmissao() {
   } catch (e) {
     out.innerHTML = '<div class="msg-erro">' + (typeof e === "string" ? e : "Erro de conexão. Verifique sua internet e tente novamente.") + '</div>';
   } finally {
-    btn.disabled = false; btn.textContent = "Enviar trabalho";
+    btn.disabled = false; 
+    btn.textContent = "Enviar trabalho";
   }
 }
 </script>
