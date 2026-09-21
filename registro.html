@@ -537,17 +537,18 @@
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_M1IVFG1Yynvi_aUIpSMlc3blMVT0K0QPFCjHeTNdpd_vogOQeO8iHFNmOr55RuN-8g/exec";
-                        
 
-    function lerComprovanteBase64(input) {
-      return new Promise((res, rej) => {
-        const f = input.files[0];
-        if (!f) return rej("Selecione o arquivo PDF.");
-        const r = new FileReader();
-        r.onload = () => res(r.result.split(",")[1]);
-        r.readAsDataURL(f);
-      });
-    }
+function lerComprovanteBase64(input) {
+  return new Promise((res, rej) => {
+    const f = input.files[0];
+    if (!f) return rej("Selecione o arquivo PDF.");
+    if (f.type !== "application/pdf") return rej("O comprovante deve ser um arquivo PDF.");
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(",")[1]);
+    r.onerror = () => rej("Erro ao ler o arquivo.");
+    r.readAsDataURL(f);
+  });
+}
 
 async function enviarInscricao() {
   const out = document.getElementById("resultado-registro");
@@ -557,10 +558,23 @@ async function enviarInscricao() {
   const classe = document.getElementById("classe").value;
   const ra = document.getElementById("ra").value.trim();
   const inputArquivo = document.getElementById("comprovante");
+  const declPagamento = document.getElementById("decl-pagamento").checked;
 
-  // Validação: RA não é obrigatório, mas a Classe é
+  // Validação dos campos obrigatórios
   if (!nome || !cpf || !email || !classe || !inputArquivo.files.length) {
     out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios.</div>'; 
+    return;
+  }
+
+  // Validação dinâmica: obriga RA para estudantes
+  if (classe.includes("Estudante") && !ra) {
+    out.innerHTML = '<div class="msg-erro">O campo RA é obrigatório para estudantes.</div>';
+    return;
+  }
+
+  // Validação da declaração
+  if (!declPagamento) {
+    out.innerHTML = '<div class="msg-erro">É necessário confirmar a declaração de veracidade dos dados.</div>';
     return;
   }
 
@@ -572,6 +586,7 @@ async function enviarInscricao() {
     const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
     const resp = await fetch(SCRIPT_URL, {
       method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // Adicionado para evitar bloqueio CORS
       body: JSON.stringify({ 
         action: "registrar", 
         nome, 
@@ -587,18 +602,20 @@ async function enviarInscricao() {
     
     if (dados.ok) {
       out.innerHTML = `<div class="msg-ok">Inscrição enviada! Código: <span class="id">${dados.id}</span></div>`;
-      // Opcional: Limpar formulário após sucesso
+      
+      // Limpeza completa do formulário
       document.getElementById("nome").value = "";
       document.getElementById("cpf").value = "";
       document.getElementById("email").value = "";
       document.getElementById("classe").value = "";
       document.getElementById("ra").value = "";
+      document.getElementById("decl-pagamento").checked = false;
       inputArquivo.value = "";
     } else {
       out.innerHTML = `<div class="msg-erro">${dados.erro}</div>`;
     }
   } catch (e) { 
-    out.innerHTML = '<div class="msg-erro">Erro de conexão. Tente novamente.</div>'; 
+    out.innerHTML = `<div class="msg-erro">${typeof e === "string" ? e : "Erro de conexão. Tente novamente."}</div>`; 
   } finally { 
     btn.disabled = false; 
     btn.textContent = "Enviar Inscrição"; 
