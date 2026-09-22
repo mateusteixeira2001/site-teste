@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Entrada - 32ª Semana do Contador de Cianorte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .badge-pendente { background: var(--ouro-claro); color: var(--tinta); border: 1px solid var(--ouro); }
+  .badge-sucesso { background: #E8F3EC; color: var(--verde); border: 1px solid var(--verde); }
+  .badge-alerta { background: #FBEAE6; color: var(--vermelho); border: 1px solid var(--vermelho); }
+  
+  .detalhes-grid {
+    margin: 16px 0;
+    padding: 14px;
+    background: var(--papel);
+    border-radius: 6px;
+    border: 1px solid var(--linha);
+  }
+  .detalhes-grid p {
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+  .detalhes-grid p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER PADRONIZADO -->
+<header>
+  <div class="container">
+    <h1>32ª SEMANA DO CONTADOR DE CIANORTE</h1>
+    <p class="sub">Semana do Contador — Departamento de Ciências Contábeis / UEM</p>
+    <span class="issn">ISBN</span>
+    <div class="datas-topo">
+      <div><div class="rotulo">Evento</div><div class="valor">03 a 06 · nov · 2026</div></div>
+      <div><div class="rotulo">Local</div><div class="valor">UEM · Cianorte-PR</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV PADRONIZADA -->
+<nav aria-label="Navegação">
+  <div class="container">
+    <a href="index.html">Página Inicial</a>
+    <a href="submeter.html">Submeter trabalho</a>
+    <a href="registro.html">Inscrição</a>
+    <a href="portaria.html" style="border-bottom-color: var(--ouro); color: var(--tinta);">Portaria</a>
+  </div>
+</nav>
+
+<!-- SEÇÃO DE CONTROLE DE ENTRADA -->
+<section id="portaria">
+  <div class="container">
+    <h2>Validação de Entrada</h2>
+    <p class="h2-sub">Digite o código de Inscrição (ex: REG-001) ou Submissão (ex: SUB-001) para validar o acesso do participante.</p>
+
+    <div class="card">
+      <label for="codigo-busca">Código de Cadastro / Submissão *</label>
+      <div style="display: flex; gap: 10px; margin-top: 6px;">
+        <input type="text" id="codigo-busca" class="mono" placeholder="REG-001 ou SUB-001" style="font-size: 18px; text-transform: uppercase;" onkeyup="if(event.key==='Enter') validarCodigo()">
+        <button type="button" class="botao" style="margin-top:0; white-space: nowrap;" id="btn-validar" onclick="validarCodigo()">Buscar</button>
+      </div>
+
+      <!-- PAINEL DE RESULTADO DA BUSCA -->
+      <div id="resultado-busca" style="margin-top: 24px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER PADRONIZADO -->
+<footer>
+  <div class="container">
+    <strong>32ª Semana do Contador de Cianorte — DCC/UEM</strong><br>
+    Universidade Estadual de Maringá · Cianorte, Paraná<br>
+    Suporte Portaria: semanadocontador@uem.br
+  </div>
+</footer>
+
+<script>
+// Insira aqui a URL do Web App gerada após implantar o script acima no Google Apps Script
+const SCRIPT_URL_PORTARIA = "https://script.google.com/macros/s/AKfycbx_M1IVFG1Yynvi_aUIpSMlc3blMVT0K0QPFCjHeTNdpd_vogOQeO8iHFNmOr55RuN-8g/exec";
+
+let codigoAtual = "";
+
+async function validarCodigo() {
+  const input = document.getElementById("codigo-busca");
+  const codigo = input.value.trim();
+  const out = document.getElementById("resultado-busca");
+  const btn = document.getElementById("btn-validar");
+
+  if (!codigo) {
+    out.innerHTML = '<div class="msg-erro">Por favor, digite um código válido.</div>';
+    return;
+  }
+
+  out.innerHTML = '<p class="mono">Consultando base de dados...</p>';
+  btn.disabled = true;
+
+  try {
+    const resp = await fetch(`${SCRIPT_URL_PORTARIA}?action=validar&codigo=${encodeURIComponent(codigo)}`);
+    const res = await resp.json();
+
+    if (res.ok) {
+      codigoAtual = res.dados.id;
+      renderizarDados(res.tipo, res.dados);
+    } else {
+      out.innerHTML = `<div class="msg-erro">${res.erro || "Registro não encontrado."}</div>`;
+    }
+  } catch (err) {
+    out.innerHTML = '<div class="msg-erro">Erro de conexão ao consultar o servidor.</div>';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderizarDados(tipo, d) {
+  const out = document.getElementById("resultado-busca");
+  
+  const jaFezCheckin = d.checkin;
+  const badgeCheckin = jaFezCheckin 
+    ? `<span class="badge badge-alerta">ENTRADA JÁ REALIZADA EM ${d.dataCheckin}</span>`
+    : `<span class="badge badge-sucesso">PRONTO PARA ENTRADA</span>`;
+
+  let infoHtml = "";
+
+  if (tipo === "Inscrição") {
+    infoHtml = `
+      <p><strong>Participante:</strong> ${d.nome}</p>
+      <p><strong>CPF:</strong> ${d.cpf}</p>
+      <p><strong>Classe:</strong> ${d.classe} ${d.ra !== "N/A" ? `(RA: ${d.ra})` : ""}</p>
+      <p><strong>Status do Pagamento:</strong> <strong>${d.status}</strong></p>
+    `;
+  } else {
+    infoHtml = `
+      <p><strong>Título do Trabalho:</strong> ${d.titulo}</p>
+      <p><strong>Autores:</strong> ${d.autores}</p>
+      <p><strong>Área:</strong> ${d.area}</p>
+      <p><strong>Status do Trabalho:</strong> <strong>${d.status}</strong></p>
+    `;
+  }
+
+  out.innerHTML = `
+    <div style="border-top: 2px solid var(--linha); padding-top: 18px;">
+      ${badgeCheckin}
+      <h3>[${tipo}] ${d.id}</h3>
+      
+      <div class="detalhes-grid">
+        ${infoHtml}
+      </div>
+
+      ${
+        jaFezCheckin 
+          ? `<div class="msg-erro" style="margin-top:10px">Atenção: Este participante já realizou o check-in anteriormente.</div>`
+          : `<button type="button" class="botao" id="btn-confirmar" style="background-color: var(--verde);" onclick="confirmarEntrada()">Liberar Entrada e Credenciar</button>`
+      }
+    </div>
+  `;
+}
+
+async function confirmarEntrada() {
+  if (!codigoAtual) return;
+
+  const btn = document.getElementById("btn-confirmar");
+  btn.disabled = true;
+  btn.textContent = "Registrando entrada...";
+
+  try {
+    const resp = await fetch(SCRIPT_URL_PORTARIA, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "confirmar_checkin",
+        codigo: codigoAtual
+      })
+    });
+
+    const res = await resp.json();
+
+    if (res.ok) {
+      document.getElementById("resultado-busca").innerHTML = `
+        <div class="msg-ok">
+          <strong>ENTRADA LIBERADA!</strong><br>
+          ${res.mensagem}<br>
+          <span class="mono">Código: ${codigoAtual}</span>
+        </div>
+      `;
+      document.getElementById("codigo-busca").value = "";
+      codigoAtual = "";
+    } else {
+      alert("Erro ao registrar entrada: " + res.erro);
+      btn.disabled = false;
+      btn.textContent = "Liberar Entrada e Credenciar";
+    }
+  } catch (err) {
+    alert("Erro de conexão ao registrar entrada.");
+    btn.disabled = false;
+    btn.textContent = "Liberar Entrada e Credenciar";
+  }
+}
+</script>
+</body>
+</html>
