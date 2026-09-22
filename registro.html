@@ -11,8 +11,22 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
     rel="stylesheet">
-  <style>
-    :root{--tinta:#123B5D;--tinta-claro:#2A3270;--papel:#FBFAF7;--grafite:#31373D;--cinza:#6B7280;--linha:#DDD8CE;--ouro:#CD0862;--ouro-claro:#FFF8DC;--verde:#2F7D4F;--vermelho:#B3402E;--branco:#FFFFFF;--ciano:#3EC6D0;}
+  <link rel="stylesheet" href="style.css">
+  <!--- <style>
+    :root {
+      --tinta: #123B5D;
+      --tinta-claro: #2A3270;
+      --papel: #FBFAF7;
+      --grafite: #31373D;
+      --cinza: #6B7280;
+      --linha: #DDD8CE;
+      --ouro: #CD0862;
+      --ouro-claro: #FFF8DC;
+      --verde: #2F7D4F;
+      --vermelho: #B3402E;
+      --branco: #FFFFFF;
+      --ciano: #3EC6D0;
+    }
 
     * {
       margin: 0;
@@ -427,7 +441,7 @@
         scroll-behavior: auto
       }
     }
-  </style>
+  </style> --->
 </head>
 
 <body>
@@ -458,18 +472,22 @@
     </div>
   </nav>
 
-<!-- ==================== INSTRUÇÕES ==================== -->
-<section id="instrucoes">
-  <div class="container">
-    <h2>Instruções de Inscrição</h2>
-    <p class="h2-sub">Orientações para confirmação da sua participação no evento.</p>
-    <div class="card">
-      <p><strong>1. Pagamento da Taxa:</strong> Realize o pagamento da taxa de inscrição utilizando o Código <b>XXXX</b></p>
-      <p><strong>2. Comprovante PDF:</strong> Guarde o comprovante bancário em formato <strong>PDF</strong> para anexo.</p>
-      <p style="margin-top:10px"><strong>3. Confirmação:</strong> Após o envio, seu comprovante será analisado. Você receberá o Código de Inscrição para acompanhamento.</p>
+  <!-- ==================== INSTRUÇÕES ==================== -->
+  <section id="instrucoes">
+    <div class="container">
+      <h2>Instruções de Inscrição</h2>
+      <p class="h2-sub">Orientações para confirmação da sua participação no evento.</p>
+      <div class="card">
+        <p><strong>1. Pagamento da Taxa:</strong> Realize o pagamento da taxa de inscrição utilizando o Código
+          <b>XXXX</b>
+        </p>
+        <p><strong>2. Comprovante PDF:</strong> Guarde o comprovante bancário em formato <strong>PDF</strong> para
+          anexo.</p>
+        <p style="margin-top:10px"><strong>3. Confirmação:</strong> Após o envio, seu comprovante será analisado. Você
+          receberá o Código de Inscrição para acompanhamento.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
   <section id="registro">
     <div class="container">
       <h2>Formulário de Inscrição</h2>
@@ -500,10 +518,12 @@
 
           <label for="comprovante">Comprovante de Pagamento (PDF) *</label>
           <input type="file" id="comprovante" accept="application/pdf" required>
+          <p class="hint">Máximo 10 MB. Apenas PDF.</p>
           <br>
           <div class="check-linha">
             <input type="checkbox" id="decl-pagamento">
-            <label for="decl-pagamento" style="margin:0;font-weight:400">Declaro que os dados informados são verdadeiros e anexei o comprovante autêntico. *</label>
+            <label for="decl-pagamento" style="margin:0;font-weight:400">Declaro que os dados informados são verdadeiros
+              e anexei o comprovante autêntico. *</label>
           </div>
           <button type="button" class="botao" id="btn-enviar-registro" onclick="enviarInscricao()">Enviar
             Inscrição</button>
@@ -525,89 +545,91 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_M1IVFG1Yynvi_aUIpSMlc3blMVT0K0QPFCjHeTNdpd_vogOQeO8iHFNmOr55RuN-8g/exec";
 
-function lerComprovanteBase64(input) {
-  return new Promise((res, rej) => {
-    const f = input.files[0];
-    if (!f) return rej("Selecione o arquivo PDF.");
-    if (f.type !== "application/pdf") return rej("O comprovante deve ser um arquivo PDF.");
-    const r = new FileReader();
-    r.onload = () => res(r.result.split(",")[1]);
-    r.onerror = () => rej("Erro ao ler o arquivo.");
-    r.readAsDataURL(f);
-  });
-}
+    function lerComprovanteBase64(input) {
+      return new Promise((res, rej) => {
+        const f = input.files[0];
+        if (!f) return rej("Selecione o arquivo PDF.");
+        if (f.type !== "application/pdf") return rej("O comprovante deve ser um arquivo PDF.");
+        if (f.size > 10 * 1024 * 1024) return rej("O arquivo excede 10 MB."); // Correção aplicada aqui
 
-async function enviarInscricao() {
-  const out = document.getElementById("resultado-registro");
-  const nome = document.getElementById("nome").value.trim();
-  const cpf = document.getElementById("cpf").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const classe = document.getElementById("classe").value;
-  const ra = document.getElementById("ra").value.trim();
-  const inputArquivo = document.getElementById("comprovante");
-  const declPagamento = document.getElementById("decl-pagamento").checked;
-
-  // Validação dos campos obrigatórios
-  if (!nome || !cpf || !email || !classe || !inputArquivo.files.length) {
-    out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios.</div>'; 
-    return;
-  }
-
-  // Validação dinâmica: obriga RA para estudantes
-  if (classe.includes("Estudante") && !ra) {
-    out.innerHTML = '<div class="msg-erro">O campo RA é obrigatório para estudantes.</div>';
-    return;
-  }
-
-  // Validação da declaração
-  if (!declPagamento) {
-    out.innerHTML = '<div class="msg-erro">É necessário confirmar a declaração de veracidade dos dados.</div>';
-    return;
-  }
-
-  const btn = document.getElementById("btn-enviar-registro");
-  btn.disabled = true; 
-  btn.textContent = "Enviando...";
-
-  try {
-    const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
-    const resp = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" }, // Adicionado para evitar bloqueio CORS
-      body: JSON.stringify({ 
-        action: "registrar", 
-        nome, 
-        cpf, 
-        email, 
-        classe, 
-        ra, 
-        comprovanteBase64 
-      })
-    });
-    
-    const dados = await resp.json();
-    
-    if (dados.ok) {
-      out.innerHTML = `<div class="msg-ok">Inscrição enviada! Código: <span class="id">${dados.id}</span></div>`;
-      
-      // Limpeza completa do formulário
-      document.getElementById("nome").value = "";
-      document.getElementById("cpf").value = "";
-      document.getElementById("email").value = "";
-      document.getElementById("classe").value = "";
-      document.getElementById("ra").value = "";
-      document.getElementById("decl-pagamento").checked = false;
-      inputArquivo.value = "";
-    } else {
-      out.innerHTML = `<div class="msg-erro">${dados.erro}</div>`;
+        const r = new FileReader();
+        r.onload = () => res(r.result.split(",")[1]);
+        r.onerror = () => rej("Erro ao ler o arquivo.");
+        r.readAsDataURL(f);
+      });
     }
-  } catch (e) { 
-    out.innerHTML = `<div class="msg-erro">${typeof e === "string" ? e : "Erro de conexão. Tente novamente."}</div>`; 
-  } finally { 
-    btn.disabled = false; 
-    btn.textContent = "Enviar Inscrição"; 
-  }
-}
+
+    async function enviarInscricao() {
+      const out = document.getElementById("resultado-registro");
+      const nome = document.getElementById("nome").value.trim();
+      const cpf = document.getElementById("cpf").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const classe = document.getElementById("classe").value;
+      const ra = document.getElementById("ra").value.trim();
+      const inputArquivo = document.getElementById("comprovante");
+      const declPagamento = document.getElementById("decl-pagamento").checked;
+
+      // Validação dos campos obrigatórios
+      if (!nome || !cpf || !email || !classe || !inputArquivo.files.length) {
+        out.innerHTML = '<div class="msg-erro">Preencha todos os campos obrigatórios.</div>';
+        return;
+      }
+
+      // Validação dinâmica: obriga RA para estudantes
+      if (classe.includes("Estudante") && !ra) {
+        out.innerHTML = '<div class="msg-erro">O campo RA é obrigatório para estudantes.</div>';
+        return;
+      }
+
+      // Validação da declaração
+      if (!declPagamento) {
+        out.innerHTML = '<div class="msg-erro">É necessário confirmar a declaração de veracidade dos dados.</div>';
+        return;
+      }
+
+      const btn = document.getElementById("btn-enviar-registro");
+      btn.disabled = true;
+      btn.textContent = "Enviando...";
+
+      try {
+        const comprovanteBase64 = await lerComprovanteBase64(inputArquivo);
+        const resp = await fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" }, // Adicionado para evitar bloqueio CORS
+          body: JSON.stringify({
+            action: "registrar",
+            nome,
+            cpf,
+            email,
+            classe,
+            ra,
+            comprovanteBase64
+          })
+        });
+
+        const dados = await resp.json();
+
+        if (dados.ok) {
+          out.innerHTML = `<div class="msg-ok">Inscrição enviada! Código: <span class="id">${dados.id}</span></div>`;
+
+          // Limpeza completa do formulário
+          document.getElementById("nome").value = "";
+          document.getElementById("cpf").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("classe").value = "";
+          document.getElementById("ra").value = "";
+          document.getElementById("decl-pagamento").checked = false;
+          inputArquivo.value = "";
+        } else {
+          out.innerHTML = `<div class="msg-erro">${dados.erro}</div>`;
+        }
+      } catch (e) {
+        out.innerHTML = `<div class="msg-erro">${typeof e === "string" ? e : "Erro de conexão. Tente novamente."}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Enviar Inscrição";
+      }
+    }
   </script>
 </body>
 
