@@ -196,7 +196,18 @@ h2 {
     font-size: 14px;
     color: var(--cinza)
 }
-
+.cronograma {
+    list-style:none;max-width:640px
+}
+.cronograma li {
+    display:flex;gap:18px;padding:13px 0;border-bottom:1px dashed var(--linha);align-items:baseline
+}
+.cronograma .data {
+    font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;color:var(--tinta);min-width:150px
+}
+.cronograma .destaque .data,.cronograma .destaque .etapa{
+    color:var(--ouro);font-weight:600
+}
 /* ---------- ÁREAS TEMÁTICAS ---------- */
 .areas-list {
     list-style: none;
@@ -384,8 +395,8 @@ textarea {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--ouro);
-    color: var(--tinta);
+    background: var(--tinta);
+    color: var(--branco);
     padding: 10px 20px;
     border-radius: 6px;
     text-decoration: none;
