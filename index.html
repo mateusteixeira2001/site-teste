@@ -59,12 +59,12 @@
 <section id="portaria">
   <div class="container">
     <h2>Validação de Entrada</h2>
-    <p class="h2-sub">Digite o código de Inscrição (REG-XXX) ou Submissão (SUB-XXX) para validar o acesso do dia.</p>
+    <p class="h2-sub">Digite o código de Inscrição (REG-123) ou Submissão (SUB-123) para validar o acesso do dia.</p>
 
     <div class="card">
       <label for="codigo-busca">Código do Participante / Submissão *</label>
       <div style="display: flex; gap: 10px; margin-top: 6px;">
-        <input type="text" id="codigo-busca" class="mono" placeholder="REG-001 ou SUB-001" style="font-size: 18px; text-transform: uppercase;" onkeyup="if(event.key==='Enter') validarCodigo()">
+        <input type="text" id="codigo-busca" class="mono" placeholder="REG-123 ou SUB-123" style="font-size: 18px; text-transform: uppercase;" onkeyup="if(event.key==='Enter') validarCodigo()">
         <button type="button" class="botao" style="margin-top:0; white-space: nowrap;" id="btn-validar" onclick="validarCodigo()">Buscar</button>
       </div>
       <div id="resultado-busca" style="margin-top: 24px;"></div>
